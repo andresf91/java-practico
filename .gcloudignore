@@ -1,0 +1,14 @@
+.git
+.gitignore
+.DS_Store
+.settings
+.project
+.classpath
+docker
+deployments
+client/target
+data/target
+ejb/target
+web/target
+ear/target/*
+!ear/target/practicojava.ear

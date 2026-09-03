@@ -48,3 +48,18 @@ docker logs -f tse-wildfly
 
 - Web: http://localhost:8080/practicojava/trabajadores
 - Consola: `mvn -pl client exec:java`
+
+## 4. Deploy en Google Cloud Run
+
+```bash
+mvn clean install
+gcloud run deploy practicojava \
+  --source . \
+  --region southamerica-east1 \
+  --port 8080 \
+  --memory 1Gi --cpu 1 \
+  --max-instances 1 \
+  --allow-unauthenticated
+```
+
+Agregar `--min-instances 1` para tener una instancia siempre viva y se pierda el estado de memoria en data.
