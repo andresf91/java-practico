@@ -51,8 +51,10 @@ docker logs -f tse-wildfly
 
 ## 4. Deploy en Google Cloud Run
 
+El `Dockerfile` de la raíz es multi etapa. La primera etapa compila el EAR con Maven y la segunda lo
+copia sobre WildFly, así que no hace falta construir nada antes de desplegar.
+
 ```bash
-mvn clean install
 gcloud run deploy practicojava \
   --source . \
   --region southamerica-east1 \
@@ -62,4 +64,52 @@ gcloud run deploy practicojava \
   --allow-unauthenticated
 ```
 
-Agregar `--min-instances 1` para tener una instancia siempre viva y se pierda el estado de memoria en data.
+Agregar `--min-instances 1` para tener una instancia siempre viva y que no se pierda el estado de
+memoria en data.
+
+## 5. CI/CD
+
+Cada push a `main` o a `ej3` dispara el despliegue automático, sin intervención manual.
+
+```
+push a GitHub  ->  webhook  ->  Cloud Build  ->  Artifact Registry  ->  Cloud Run
+```
+
+Las piezas son:
+
+- `cloudbuild.yaml`, el pipeline. Construye la imagen, la publica etiquetada con el SHA del commit y
+  crea una revisión nueva del servicio de Cloud Run.
+- Una conexión de Cloud Build con GitHub (`practicojava-github`, en `southamerica-east1`). Al
+  vincular el repositorio, Cloud Build instala su GitHub App y crea el webhook. No hay claves
+  guardadas en el repositorio.
+- Un trigger (`practicojava-deploy`) que escucha los push a `main` y `ej3`.
+- Una cuenta de servicio propia, `cloudbuild-deployer`, con permisos acotados. Escritura sobre el
+  repositorio `practicojava` de Artifact Registry, administración del servicio de Cloud Run y uso de
+  la cuenta de servicio de runtime.
+
+Comandos de referencia para recrear la conexión y el trigger:
+
+```bash
+gcloud builds connections create github practicojava-github --region=southamerica-east1
+gcloud builds repositories create java-practico \
+  --remote-uri=https://github.com/andresf91/java-practico.git \
+  --connection=practicojava-github --region=southamerica-east1
+gcloud builds triggers create github \
+  --name=practicojava-deploy \
+  --repository=projects/proyecto-ti-493403/locations/southamerica-east1/connections/practicojava-github/repositories/java-practico \
+  --branch-pattern='^(main|ej3)$' \
+  --build-config=cloudbuild.yaml \
+  --service-account=projects/proyecto-ti-493403/serviceAccounts/cloudbuild-deployer@proyecto-ti-493403.iam.gserviceaccount.com \
+  --region=southamerica-east1
+```
+
+Estado de los builds y de las revisiones desplegadas:
+
+```bash
+gcloud builds list --region=southamerica-east1 --limit=5
+gcloud run revisions list --service=practicojava --region=southamerica-east1
+```
+
+Cada despliegue crea una revisión nueva, por lo que el estado que guarda en memoria el Singleton de
+la capa de datos se pierde en cada entrega. Es una consecuencia directa de no tener persistencia
+hasta el Ejercicio 7.

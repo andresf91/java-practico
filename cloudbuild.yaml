@@ -1,0 +1,36 @@
+# pipeline disparado por cada push a la rama, construye la imagen y despliega en cloud run
+
+steps:
+  - id: construir
+    name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', '${_IMAGEN}:${SHORT_SHA}', '-t', '${_IMAGEN}:latest', '.']
+
+  - id: publicar
+    name: gcr.io/cloud-builders/docker
+    args: ['push', '--all-tags', '${_IMAGEN}']
+
+  - id: desplegar
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - practicojava
+      - --image=${_IMAGEN}:${SHORT_SHA}
+      - --region=${_REGION}
+      - --port=8080
+      - --memory=1Gi
+      - --cpu=1
+      - --max-instances=1
+      - --allow-unauthenticated
+
+substitutions:
+  _REGION: southamerica-east1
+  _IMAGEN: southamerica-east1-docker.pkg.dev/proyecto-ti-493403/practicojava/practicojava
+
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+
+# el ear arrastra el bom de wildfly, el build supera el timeout por defecto de 10 minutos
+timeout: 1800s
