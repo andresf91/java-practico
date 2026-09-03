@@ -67,6 +67,9 @@ gcloud run deploy practicojava \
 Agregar `--min-instances 1` para tener una instancia siempre viva y que no se pierda el estado de
 memoria en data.
 
+La aplicación queda publicada en
+https://practicojava-5g5yuqrema-rj.a.run.app/practicojava/trabajadores
+
 ## 5. CI/CD
 
 Cada push a `main` o a `ej3` dispara el despliegue automático, sin intervención manual.
