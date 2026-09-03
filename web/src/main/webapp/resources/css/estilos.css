@@ -1,0 +1,108 @@
+.pagina {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    font-family: system-ui, sans-serif;
+}
+
+.pagina h1 {
+    margin-bottom: 0;
+}
+
+.subtitulo {
+    margin-top: .2rem;
+    color: #555;
+}
+
+.pagina main > * {
+    margin-bottom: 1.5rem;
+}
+
+.formulario td {
+    padding: .3rem .5rem;
+    vertical-align: top;
+}
+
+.barra-busqueda {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: .8rem;
+}
+
+.pagina footer {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: .8rem;
+}
+
+.opciones {
+    line-height: 1.9;
+}
+
+/* color de acento de la aplicación */
+:root {
+    --acento: #008BD0;
+    --acento-oscuro: #0072ab;
+    --acento-suave: rgba(0, 139, 208, .25);
+    --primary-color: var(--acento);
+    --primary-color-text: #ffffff;
+}
+
+a,
+.pagina a:link,
+.pagina a:visited {
+    color: var(--acento);
+}
+
+.ui-button,
+.ui-datepicker-trigger,
+.ui-paginator .ui-paginator-page.ui-state-active {
+    background: var(--acento) !important;
+    border-color: var(--acento) !important;
+    color: #fff !important;
+}
+
+.ui-button:enabled:hover,
+.ui-datepicker-trigger:enabled:hover {
+    background: var(--acento-oscuro) !important;
+    border-color: var(--acento-oscuro) !important;
+}
+
+.ui-button:enabled:focus,
+.ui-inputfield:enabled:focus,
+.ui-chips:not(.ui-state-disabled).ui-inputwrapper-focus > ul {
+    outline: 0 none;
+    border-color: var(--acento) !important;
+    box-shadow: 0 0 0 .2rem var(--acento-suave) !important;
+}
+
+.ui-inputfield:enabled:hover,
+.ui-chips:not(.ui-state-disabled) > ul:hover {
+    border-color: var(--acento) !important;
+}
+
+.ui-chips-token,
+.ui-datepicker table td > span.ui-state-active {
+    background: var(--acento) !important;
+    color: #fff !important;
+}
+
+.ui-sortable-column.ui-state-highlight,
+.ui-sortable-column.ui-state-highlight .ui-sortable-column-icon {
+    color: var(--acento) !important;
+}
+
+.ui-growl-item-container.ui-growl-info {
+    background: #e6f4fb !important;
+    border-color: var(--acento) !important;
+    color: var(--acento-oscuro) !important;
+}
+
+.ui-growl-item-container.ui-growl-info .ui-growl-image {
+    color: var(--acento) !important;
+}
+
+.ui-datepicker table td > span.ui-state-highlight {
+    color: var(--acento) !important;
+}

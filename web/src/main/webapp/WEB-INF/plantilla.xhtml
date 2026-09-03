@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+
+<h:head>
+    <title><ui:insert name="titulo">Gestor de Trabajadores de la Salud</ui:insert></title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="css" name="estilos.css"/>
+</h:head>
+
+<h:body>
+    <div class="pagina">
+        <header>
+            <h1>Gestor de Trabajadores de la Salud</h1>
+            <p class="subtitulo"><ui:insert name="subtitulo">Práctico TSE 2026</ui:insert></p>
+        </header>
+
+        <main>
+            <ui:insert name="contenido"/>
+        </main>
+
+        <footer>
+            <ui:insert name="pie">
+                <h:link outcome="index" value="Volver a inicio"/>
+            </ui:insert>
+        </footer>
+    </div>
+</h:body>
+</html>

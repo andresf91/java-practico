@@ -1,0 +1,105 @@
+<ui:composition template="/WEB-INF/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="primefaces">
+
+    <ui:define name="titulo">Trabajadores de la salud</ui:define>
+    <ui:define name="subtitulo">Práctico TSE 2026 (versión JSF)</ui:define>
+
+    <ui:define name="contenido">
+
+        <p:growl id="avisos" globalOnly="true" showDetail="true" life="6000"/>
+
+        <h:form id="formAlta">
+            <p:panel header="Agregar trabajador">
+                <h:panelGrid columns="3" styleClass="formulario">
+
+                    <p:outputLabel for="registro" value="Número de registro MSP"/>
+                    <p:inputText id="registro" value="#{trabajadorBean.numeroRegistroMSP}"
+                                 required="true" requiredMessage="El número de registro MSP es obligatorio">
+                        <p:ajax event="blur" update="msgRegistro"/>
+                    </p:inputText>
+                    <p:message id="msgRegistro" for="registro"/>
+
+                    <p:outputLabel for="nombre" value="Nombre completo"/>
+                    <p:inputText id="nombre" value="#{trabajadorBean.nombreCompleto}"
+                                 required="true" requiredMessage="El nombre completo es obligatorio">
+                        <p:ajax event="blur" update="msgNombre"/>
+                    </p:inputText>
+                    <p:message id="msgNombre" for="nombre"/>
+
+                    <p:outputLabel for="especialidad" value="Especialidad"/>
+                    <p:inputText id="especialidad" value="#{trabajadorBean.especialidad}"
+                                 required="true" requiredMessage="La especialidad es obligatoria">
+                        <p:ajax event="blur" update="msgEspecialidad"/>
+                    </p:inputText>
+                    <p:message id="msgEspecialidad" for="especialidad"/>
+
+                    <p:outputLabel for="fecha" value="Fecha de alta"/>
+                    <p:datePicker id="fecha" value="#{trabajadorBean.fechaAlta}" pattern="dd/MM/yyyy"
+                                  maxdate="#{trabajadorBean.hoy}" showIcon="true"
+                                  required="true" requiredMessage="La fecha de alta es obligatoria"/>
+                    <p:message id="msgFecha" for="fecha"/>
+
+                    <p:outputLabel for="anios" value="Años de experiencia"/>
+                    <p:spinner id="anios" value="#{trabajadorBean.aniosExperiencia}" min="0">
+                        <f:validateLongRange minimum="0" maximum="60"/>
+                    </p:spinner>
+                    <p:message id="msgAnios" for="anios"/>
+
+                    <p:outputLabel for="prestadores" value="Prestadores (RUT)"/>
+                    <p:chips id="prestadores" value="#{trabajadorBean.prestadores}" addOnBlur="true"
+                             required="true" requiredMessage="Hay que indicar al menos un prestador"/>
+                    <p:message id="msgPrestadores" for="prestadores"/>
+
+                </h:panelGrid>
+
+                <p:commandButton id="btnAgregar" value="Agregar" action="#{trabajadorBean.agregar}"
+                                 update="formAlta avisos :formListado:tabla"/>
+            </p:panel>
+        </h:form>
+
+        <h:form id="formListado">
+            <p:panel header="Trabajadores registrados">
+                <div class="barra-busqueda">
+                    <p:outputLabel for="filtro" value="Buscar por especialidad"/>
+                    <p:inputText id="filtro" value="#{trabajadorBean.filtroEspecialidad}">
+                        <p:ajax event="keyup" delay="400" listener="#{trabajadorBean.buscar}" update="tabla"/>
+                    </p:inputText>
+                    <p:commandButton id="btnVerTodos" value="Ver todos" action="#{trabajadorBean.verTodos}" update="@form"/>
+                </div>
+
+                <p:dataTable id="tabla" var="t" value="#{trabajadorBean.trabajadores}"
+                             paginator="true" rows="5" rowsPerPageTemplate="5,10,20"
+                             emptyMessage="Sin resultados">
+                    <p:column headerText="Id" sortBy="#{t.id}">
+                        <h:outputText value="#{t.id}"/>
+                    </p:column>
+                    <p:column headerText="Registro MSP" sortBy="#{t.numeroRegistroMSP}">
+                        <h:outputText value="#{t.numeroRegistroMSP}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" sortBy="#{t.nombreCompleto}">
+                        <h:outputText value="#{t.nombreCompleto}"/>
+                    </p:column>
+                    <p:column headerText="Especialidad" sortBy="#{t.especialidad}">
+                        <h:outputText value="#{t.especialidad}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de alta" sortBy="#{t.fechaAlta}">
+                        <h:outputText value="#{t.fechaAlta}">
+                            <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Años exp." sortBy="#{t.aniosExperiencia}">
+                        <h:outputText value="#{t.aniosExperiencia}"/>
+                    </p:column>
+                    <p:column headerText="Trabaja en">
+                        <h:outputText value="#{t.prestadoresComoTexto}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

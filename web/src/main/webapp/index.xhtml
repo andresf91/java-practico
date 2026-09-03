@@ -1,0 +1,20 @@
+<ui:composition template="/WEB-INF/plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:p="primefaces">
+
+    <ui:define name="titulo">Gestor de Trabajadores de la Salud</ui:define>
+    <ui:define name="subtitulo">Práctico TSE 2026</ui:define>
+
+    <ui:define name="contenido">
+        <p:panel header="Capas de presentación web">
+            <ul class="opciones">
+                <li><h:link outcome="trabajadores" value="Gestión de trabajadores (JSF)"/></li>
+                <li><h:outputLink value="./trabajadores">Gestión de trabajadores (Servlet y JSP)</h:outputLink></li>
+            </ul>
+        </p:panel>
+    </ui:define>
+
+    <ui:define name="pie"/>
+</ui:composition>

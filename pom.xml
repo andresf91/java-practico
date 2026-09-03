@@ -34,6 +34,9 @@
         <!--Use JUnit 5 here - the WildFly bom still brings 4.x -->
         <version.junit5>6.1.2</version.junit5>
 
+        <!-- librería de componentes JSF, el classifier jakarta es el build para jakarta.faces -->
+        <version.primefaces>15.0.18</version.primefaces>
+
         <!-- other plugin versions -->
         <version.compiler.plugin>3.15.0</version.compiler.plugin>
         <version.ear.plugin>3.4.0</version.ear.plugin>
@@ -129,6 +132,14 @@
                 <artifactId>practicojava-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
+            </dependency>
+
+            <!-- PrimeFaces para ej 4-->
+            <dependency>
+                <groupId>org.primefaces</groupId>
+                <artifactId>primefaces</artifactId>
+                <version>${version.primefaces}</version>
+                <classifier>jakarta</classifier>
             </dependency>
 
             <!-- Define the version of the WAR so that we don't need to repeat

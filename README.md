@@ -9,7 +9,7 @@ Gestor de **Trabajadores de la Salud** (modelo de entidades principales de Salud
 practicojava/
 - data/ (Session Bean singleton + entidad + intfz de datos)
 - ejb/ (Session Bean stateless + intfz de negocio + excepciones)
-- web/ (Servlet + JSP)
+- web/ (Servlet + JSP + JSF con PrimeFaces)
 - ear/ (empaqueta data+ejb+web)
 - client/ (cliente de consola)
 
@@ -46,7 +46,9 @@ docker logs -f tse-wildfly
 
 ## 3. Probar
 
-- Web: http://localhost:8080/practicojava/trabajadores
+- Portada: http://localhost:8080/practicojava/
+- Web JSF: http://localhost:8080/practicojava/trabajadores.xhtml
+- Web Servlet: http://localhost:8080/practicojava/trabajadores
 - Consola: `mvn -pl client exec:java`
 
 ## 4. Deploy en Google Cloud Run

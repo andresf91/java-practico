@@ -60,6 +60,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- PrimeFaces, viaja en WEB-INF/lib del WAR -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <classifier>jakarta</classifier>
+        </dependency>
+
         <!-- Import the JAX-RS API, we use provided scope as the API is included in WildFly / JBoss EAP -->
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
