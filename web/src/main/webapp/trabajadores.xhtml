@@ -58,6 +58,10 @@
 
                 <p:commandButton id="btnAgregar" value="Agregar" action="#{trabajadorBean.agregar}"
                                  update="formAlta avisos :formListado:tabla"/>
+
+                <p:commandButton id="btnEncolar" value="Encolar alta (asincrónico)"
+                                 action="#{trabajadorBean.encolarAlta}"
+                                 update="formAlta avisos" styleClass="ui-button-outlined"/>
             </p:panel>
         </h:form>
 

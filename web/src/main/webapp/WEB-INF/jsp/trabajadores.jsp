@@ -43,6 +43,7 @@
            <input id="pre" type="text" name="prestadores" placeholder="214771230011, 215558820013" required>
            <br><label></label><small>Relación TRABAJA EN, al menos uno, separados por coma.</small></p>
         <button type="submit">Agregar</button>
+        <button type="submit" name="modo" value="async">Encolar alta (asincrónico)</button>
     </fieldset>
 </form>
 

@@ -27,10 +27,12 @@ practicojava/
 
 ```bash
 docker build -t tse-wildfly:41 docker/wildfly
-docker run -d --name tse-wildfly -p 8080:8080 -p 9990:9990 -v "$PWD/deployments":/opt/jboss/wildfly/standalone/deployments tse-wildfly:41
+docker run -d --name tse-wildfly --hostname localhost -p 8080:8080 -p 9990:9990 -v "$PWD/deployments":/opt/jboss/wildfly/standalone/deployments tse-wildfly:41
 ```
 
 Copiar el .ear en deployments/ para que Wildfly lo despliegue.
+
+--hostname localhost es necesario para el cliente JMS remoto.
 
 Credenciales: consola de administración: admin/Admin#2026 (http://localhost:9990).
 Usuario de aplicación tse/Tse#2026 (grupo guest) para cliente de consola.
@@ -65,3 +67,20 @@ gcloud run deploy practicojava \
 ```
 
 Agregar `--min-instances 1` para tener una instancia siempre viva y se pierda el estado de memoria en data.
+
+## 5. Alta asincrónica con JMS
+
+Formato del mensaje:
+
+```
+numeroRegistroMSP|nombreCompleto|especialidad|fechaAlta|aniosExperiencia|prestadores
+MSP-2001|Diego Rocha|Neumología|2020-05-14|9|214771230011,215558820013
+```
+
+La fecha va en formato AAAA-MM-DD y los prestadores separados por coma.
+
+Para pedir un alta por esta vía:
+- Web JSF: botón **Encolar alta (asincrónico)**.
+- Web Servlet: el mismo formulario con el botón *Encolar alta (asincrónico)*.
+- Consola: opción 4 del menú.
+

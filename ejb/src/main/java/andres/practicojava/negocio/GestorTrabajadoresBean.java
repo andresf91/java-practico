@@ -44,12 +44,6 @@ public class GestorTrabajadoresBean implements GestorTrabajadoresLocal, GestorTr
             throw new ReglaNegocioException("La fecha de alta es obligatoria.");
         }
 
-        // regla 1: el número de registro MSP no puede repetirse
-        if (dao.buscarPorRegistroMSP(numeroRegistroMSP) != null) {
-            throw new ReglaNegocioException(
-                    "Ya existe un trabajador con el registro MSP " + numeroRegistroMSP.trim() + ".");
-        }
-
         // regla 2: la fecha de alta no puede ser futura
         if (fechaAlta.isAfter(LocalDate.now())) {
             throw new ReglaNegocioException("La fecha de alta no puede ser posterior a hoy.");
@@ -70,7 +64,14 @@ public class GestorTrabajadoresBean implements GestorTrabajadoresLocal, GestorTr
 
         TrabajadorSalud nuevo = new TrabajadorSalud(numeroRegistroMSP.trim(), nombreCompleto.trim(),
                 especialidad.trim(), fechaAlta, aniosExperiencia, prestadoresNormalizados);
-        return dao.crear(nuevo);
+
+        // regla 1: el número de registro MSP no puede repetirse
+        TrabajadorSalud creado = dao.crearSiNoExisteRegistro(nuevo);
+        if (creado == null) {
+            throw new ReglaNegocioException(
+                    "Ya existe un trabajador con el registro MSP " + numeroRegistroMSP.trim() + ".");
+        }
+        return creado;
     }
 
     @Override

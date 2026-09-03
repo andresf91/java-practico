@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import andres.practicojava.mensajeria.EmisorAltaLocal;
 import andres.practicojava.modelo.TrabajadorSalud;
 import andres.practicojava.negocio.GestorTrabajadoresLocal;
 import andres.practicojava.negocio.ReglaNegocioException;
@@ -25,6 +26,9 @@ public class TrabajadorBean implements Serializable {
 
     @EJB
     private GestorTrabajadoresLocal gestor;
+
+    @EJB
+    private EmisorAltaLocal emisor;
 
     // formulario de alta
     private String numeroRegistroMSP;
@@ -55,6 +59,15 @@ public class TrabajadorBean implements Serializable {
             avisar(FacesMessage.SEVERITY_ERROR, "No se pudo agregar", e.getMessage());
         }
         buscar();
+    }
+
+    // se manda el alta a la cola
+    public void encolarAlta() {
+        emisor.encolarAlta(numeroRegistroMSP, nombreCompleto, especialidad,
+                fechaAlta, aniosExperiencia, prestadores);
+        avisar(FacesMessage.SEVERITY_INFO, "Solicitud encolada",
+                "El alta de " + nombreCompleto + " se procesa de forma asincrónica.");
+        limpiarFormulario();
     }
 
     // el gestor devuelve todos cuando el filtro viene vacío

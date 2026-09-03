@@ -61,6 +61,16 @@ public class TrabajadorDaoBean implements TrabajadorDaoLocal, TrabajadorDaoRemot
         return trabajador;
     }
     
+    @Override
+    @Lock(LockType.WRITE)
+    public TrabajadorSalud crearSiNoExisteRegistro(TrabajadorSalud trabajador) {
+        // consulta y alta en la misma sección crítica
+        if (buscarPorRegistroMSP(trabajador.getNumeroRegistroMSP()) != null) {
+            return null;
+        }
+        return crear(trabajador);
+    }
+
     //listar
 
     @Override

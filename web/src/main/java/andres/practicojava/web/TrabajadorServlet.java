@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+import andres.practicojava.mensajeria.EmisorAltaLocal;
 import andres.practicojava.modelo.TrabajadorSalud;
 import andres.practicojava.negocio.GestorTrabajadoresLocal;
 import andres.practicojava.negocio.ReglaNegocioException;
@@ -27,6 +28,9 @@ public class TrabajadorServlet extends HttpServlet {
     // interfaz local, el servlet y el EJB corren en el mismo WildFly
     @EJB
     private GestorTrabajadoresLocal gestor;
+
+    @EJB
+    private EmisorAltaLocal emisor;
 
     // listar y buscar
     @Override
@@ -59,15 +63,29 @@ public class TrabajadorServlet extends HttpServlet {
             int anios = parsearEntero(req.getParameter("aniosExperiencia"));
             List<String> prestadores = parsearPrestadores(req.getParameter("prestadores"));
 
-            TrabajadorSalud alta = gestor.agregar(
-                    req.getParameter("numeroRegistroMSP"),
-                    req.getParameter("nombreCompleto"),
-                    req.getParameter("especialidad"),
-                    fechaAlta,
-                    anios,
-                    prestadores);
+            if ("async".equals(req.getParameter("modo"))) {
+                emisor.encolarAlta(
+                        req.getParameter("numeroRegistroMSP"),
+                        req.getParameter("nombreCompleto"),
+                        req.getParameter("especialidad"),
+                        fechaAlta,
+                        anios,
+                        prestadores);
 
-            req.setAttribute("mensaje", "Trabajador agregado: " + alta);
+                req.setAttribute("mensaje", "Solicitud encolada, el alta se procesa de forma asincrónica.");
+
+            } else {
+                
+                TrabajadorSalud alta = gestor.agregar(
+                        req.getParameter("numeroRegistroMSP"),
+                        req.getParameter("nombreCompleto"),
+                        req.getParameter("especialidad"),
+                        fechaAlta,
+                        anios,
+                        prestadores);
+
+                req.setAttribute("mensaje", "Trabajador agregado: " + alta);
+            }
 
         } catch (ReglaNegocioException e) {
             req.setAttribute("error", e.getMessage());

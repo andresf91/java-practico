@@ -69,6 +69,13 @@
             <artifactId>jakarta.ejb-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- JMS para el emisor y el MDB del ejercicio 5 -->
+        <dependency>
+            <groupId>jakarta.jms</groupId>
+            <artifactId>jakarta.jms-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
