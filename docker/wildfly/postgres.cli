@@ -1,0 +1,12 @@
+# instala el driver de PostgreSQL como módulo y define el datasource
+# se ejecuta durante el build, con el servidor embebido, y queda escrito en el perfil de WIldfly standalone-full.xml
+
+embed-server --server-config=standalone-full.xml
+
+module add --name=org.postgresql --resources=/tmp/postgresql.jar --dependencies=java.sql,jakarta.transaction.api
+
+/subsystem=datasources/jdbc-driver=postgresql:add(driver-name=postgresql,driver-module-name=org.postgresql,driver-class-name=org.postgresql.Driver,driver-xa-datasource-class-name=org.postgresql.xa.PGXADataSource)
+
+data-source add --name=TrabajadoresDS --jndi-name=java:jboss/datasources/TrabajadoresDS --driver-name=postgresql --connection-url=${env.DB_URL:jdbc:postgresql://localhost:5432/postgres} --user-name=${env.DB_USER:postgres} --password=${env.DB_PASSWORD:postgres} --min-pool-size=2 --max-pool-size=10 --validate-on-match=true --background-validation=false --check-valid-connection-sql="SELECT 1" --enabled=true
+
+stop-embedded-server

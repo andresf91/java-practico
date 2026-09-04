@@ -4,7 +4,7 @@
 .settings
 .project
 .classpath
-docker
+docker/wildfly/Dockerfile
 deployments
 client/target
 data/target
@@ -12,3 +12,4 @@ ejb/target
 web/target
 ear/target/*
 !ear/target/practicojava.ear
+.env.local
