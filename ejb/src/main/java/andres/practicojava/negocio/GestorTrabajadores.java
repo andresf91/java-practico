@@ -16,4 +16,6 @@ public interface GestorTrabajadores {
     List<TrabajadorSalud> obtenerTrabajadores();
 
     List<TrabajadorSalud> buscarPorEspecialidad(String especialidad);
+
+    TrabajadorSalud buscarPorRegistroMSP(String numeroRegistroMSP);
 }

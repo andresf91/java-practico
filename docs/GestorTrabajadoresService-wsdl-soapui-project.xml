@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="97a57625-95f0-4c8c-b6e4-d47021e28520" activeEnvironment="Default" name="GestorTrabajadoresService?wsdl" resourceRoot="" soapui-version="5.10.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="b0dc05ee-fd08-489c-9ba2-8b9d019e4e98" wsaVersion="NONE" name="GestorTrabajadoresServiceSoapBinding" type="wsdl" bindingName="{http://servicios.web.practicojava.andres/}GestorTrabajadoresServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/practicojava/GestorTrabajadoresService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/practicojava/GestorTrabajadoresService?wsdl"><con:part><con:url>http://localhost:8080/practicojava/GestorTrabajadoresService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="GestorTrabajadoresService" targetNamespace="http://servicios.web.practicojava.andres/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://servicios.web.practicojava.andres/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://servicios.web.practicojava.andres/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="agregarTrabajador" type="tns:agregarTrabajador"/>
+      <xs:element name="agregarTrabajadorResponse" type="tns:agregarTrabajadorResponse"/>
+      <xs:element name="buscarPorEspecialidad" type="tns:buscarPorEspecialidad"/>
+      <xs:element name="buscarPorEspecialidadResponse" type="tns:buscarPorEspecialidadResponse"/>
+      <xs:element name="listarTrabajadores" type="tns:listarTrabajadores"/>
+      <xs:element name="listarTrabajadoresResponse" type="tns:listarTrabajadoresResponse"/>
+      <xs:element name="obtenerPorRegistroMSP" type="tns:obtenerPorRegistroMSP"/>
+      <xs:element name="obtenerPorRegistroMSPResponse" type="tns:obtenerPorRegistroMSPResponse"/>
+      <xs:element name="trabajador" type="tns:trabajadorDTO"/>
+      <xs:complexType name="obtenerPorRegistroMSP">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numeroRegistroMSP" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="obtenerPorRegistroMSPResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="trabajador" type="tns:trabajadorDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="trabajadorDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="numeroRegistroMSP" type="xs:string"/>
+          <xs:element minOccurs="0" name="nombreCompleto" type="xs:string"/>
+          <xs:element minOccurs="0" name="especialidad" type="xs:string"/>
+          <xs:element minOccurs="0" name="fechaAlta" type="xs:string"/>
+          <xs:element name="aniosExperiencia" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="prestadores" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="buscarPorEspecialidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="especialidad" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="buscarPorEspecialidadResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="trabajador" type="tns:trabajadorDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="listarTrabajadores">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="listarTrabajadoresResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="trabajador" type="tns:trabajadorDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="agregarTrabajador">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="trabajador" type="tns:trabajadorDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="agregarTrabajadorResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="trabajador" type="tns:trabajadorDTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ReglaNegocioException" type="tns:ReglaNegocioException"/>
+      <xs:complexType name="ReglaNegocioException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerPorRegistroMSP">
+    <wsdl:part element="tns:obtenerPorRegistroMSP" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="agregarTrabajadorResponse">
+    <wsdl:part element="tns:agregarTrabajadorResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarPorEspecialidadResponse">
+    <wsdl:part element="tns:buscarPorEspecialidadResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarTrabajadoresResponse">
+    <wsdl:part element="tns:listarTrabajadoresResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ReglaNegocioException">
+    <wsdl:part element="tns:ReglaNegocioException" name="ReglaNegocioException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarPorEspecialidad">
+    <wsdl:part element="tns:buscarPorEspecialidad" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerPorRegistroMSPResponse">
+    <wsdl:part element="tns:obtenerPorRegistroMSPResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listarTrabajadores">
+    <wsdl:part element="tns:listarTrabajadores" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="agregarTrabajador">
+    <wsdl:part element="tns:agregarTrabajador" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GestorTrabajadores">
+    <wsdl:operation name="obtenerPorRegistroMSP">
+      <wsdl:input message="tns:obtenerPorRegistroMSP" name="obtenerPorRegistroMSP"></wsdl:input>
+      <wsdl:output message="tns:obtenerPorRegistroMSPResponse" name="obtenerPorRegistroMSPResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarPorEspecialidad">
+      <wsdl:input message="tns:buscarPorEspecialidad" name="buscarPorEspecialidad"></wsdl:input>
+      <wsdl:output message="tns:buscarPorEspecialidadResponse" name="buscarPorEspecialidadResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarTrabajadores">
+      <wsdl:input message="tns:listarTrabajadores" name="listarTrabajadores"></wsdl:input>
+      <wsdl:output message="tns:listarTrabajadoresResponse" name="listarTrabajadoresResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="agregarTrabajador">
+      <wsdl:input message="tns:agregarTrabajador" name="agregarTrabajador"></wsdl:input>
+      <wsdl:output message="tns:agregarTrabajadorResponse" name="agregarTrabajadorResponse"></wsdl:output>
+      <wsdl:fault message="tns:ReglaNegocioException" name="ReglaNegocioException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GestorTrabajadoresServiceSoapBinding" type="tns:GestorTrabajadores">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtenerPorRegistroMSP">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerPorRegistroMSP">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerPorRegistroMSPResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarPorEspecialidad">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarPorEspecialidad">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarPorEspecialidadResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarTrabajadores">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listarTrabajadores">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listarTrabajadoresResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="agregarTrabajador">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="agregarTrabajador">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="agregarTrabajadorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ReglaNegocioException">
+        <soap:fault name="ReglaNegocioException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GestorTrabajadoresService">
+    <wsdl:port binding="tns:GestorTrabajadoresServiceSoapBinding" name="GestorTrabajadoresPort">
+      <soap:address location="http://localhost:8080/practicojava/GestorTrabajadoresService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/practicojava/GestorTrabajadoresService</con:endpoint></con:endpoints><con:operation id="7d0e8092-2770-4adc-a947-1f8227558dc1" isOneWay="false" action="" name="agregarTrabajador" bindingOperationName="agregarTrabajador" type="Request-Response" outputName="agregarTrabajadorResponse" inputName="agregarTrabajador" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0df09452-b8b7-4cc1-98c4-864dd7e7c961" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/practicojava/GestorTrabajadoresService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://servicios.web.practicojava.andres/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:agregarTrabajador>
+         <!--Optional:-->
+         <trabajador>
+            <!--Optional:-->
+            <id>?</id>
+            <!--Optional:-->
+            <numeroRegistroMSP>?</numeroRegistroMSP>
+            <!--Optional:-->
+            <nombreCompleto>?</nombreCompleto>
+            <!--Optional:-->
+            <especialidad>?</especialidad>
+            <!--Optional:-->
+            <fechaAlta>?</fechaAlta>
+            <aniosExperiencia>?</aniosExperiencia>
+            <!--Zero or more repetitions:-->
+            <prestadores>?</prestadores>
+         </trabajador>
+      </ser:agregarTrabajador>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.web.practicojava.andres/GestorTrabajadores/agregarTrabajador"/></con:call></con:operation><con:operation id="c7c447eb-0625-4dc0-9111-efa679b82df2" isOneWay="false" action="" name="buscarPorEspecialidad" bindingOperationName="buscarPorEspecialidad" type="Request-Response" outputName="buscarPorEspecialidadResponse" inputName="buscarPorEspecialidad" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d8feb92f-d10e-4c11-8a8d-69324b02b5ae" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/practicojava/GestorTrabajadoresService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://servicios.web.practicojava.andres/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:buscarPorEspecialidad>
+         <!--Optional:-->
+         <especialidad>?</especialidad>
+      </ser:buscarPorEspecialidad>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.web.practicojava.andres/GestorTrabajadores/buscarPorEspecialidad"/></con:call></con:operation><con:operation id="f56c0702-fed6-41a4-ac45-81839b289172" isOneWay="false" action="" name="listarTrabajadores" bindingOperationName="listarTrabajadores" type="Request-Response" outputName="listarTrabajadoresResponse" inputName="listarTrabajadores" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5849cdc0-6f10-4138-8139-ca9a9fa918b0" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/practicojava/GestorTrabajadoresService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://servicios.web.practicojava.andres/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:listarTrabajadores/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.web.practicojava.andres/GestorTrabajadores/listarTrabajadores"/></con:call></con:operation><con:operation id="09a0f30c-530f-4f85-a9b8-8ece0020afbc" isOneWay="false" action="" name="obtenerPorRegistroMSP" bindingOperationName="obtenerPorRegistroMSP" type="Request-Response" outputName="obtenerPorRegistroMSPResponse" inputName="obtenerPorRegistroMSP" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bd587feb-659f-4771-a15a-37590fa963dd" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/practicojava/GestorTrabajadoresService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://servicios.web.practicojava.andres/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:obtenerPorRegistroMSP>
+         <!--Optional:-->
+         <numeroRegistroMSP>?</numeroRegistroMSP>
+      </ser:obtenerPorRegistroMSP>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://servicios.web.practicojava.andres/GestorTrabajadores/obtenerPorRegistroMSP"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

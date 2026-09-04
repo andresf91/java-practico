@@ -84,3 +84,44 @@ Para pedir un alta por esta vía:
 - Web Servlet: el mismo formulario con el botón *Encolar alta (asincrónico)*.
 - Consola: opción 4 del menú.
 
+## 6. Servicios web SOAP y REST
+
+Los servicios viven en el WAR y delegan en la capa de negocio.
+
+### SOAP
+
+WSDL en http://localhost:8080/practicojava/GestorTrabajadoresService?wsdl
+
+Operaciones: 
+- listarTrabajadores
+- buscarPorEspecialidad
+- obtenerPorRegistroMSP
+- agregarTrabajador
+
+Las reglas de negocio incumplidas vuelven como SOAP Fault.
+
+### REST
+
+Base http://localhost:8080/practicojava/rest/trabajadores
+
+#### Métodos GET
+- /trabajadores (lista completa)
+- /trabajadores?especialidad=Cardio (lista filtrada)
+- /trabajadores/{numeroRegistroMSP} (detalle de un trabajador, o 404 si no existe)
+
+
+#### Métodos POST
+- /trabajadores (201 con cabecera **Location**, 400 si el dato es inválido, 409 si el registro MSP ya existe)
+- /trabajadores/encolar (202, el alta la resuelve el MDB)
+
+Representaciones JSON y XML según la cabecera **Accept**, 406 para cualquier otra.
+
+#### Ejemplos con curl
+
+```bash
+curl http://localhost:8080/practicojava/rest/trabajadores
+curl -H "Accept: application/xml" http://localhost:8080/practicojava/rest/trabajadores/MSP-1001
+curl -X POST http://localhost:8080/practicojava/rest/trabajadores \
+  -H "Content-Type: application/json" \
+  -d '{"numeroRegistroMSP":"MSP-2001","nombreCompleto":"Diego Rocha","especialidad":"Neumología","fechaAlta":"2020-05-14","aniosExperiencia":9,"prestadores":["214771230011"]}'
+```

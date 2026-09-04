@@ -68,7 +68,7 @@ public class GestorTrabajadoresBean implements GestorTrabajadoresLocal, GestorTr
         // regla 1: el número de registro MSP no puede repetirse
         TrabajadorSalud creado = dao.crearSiNoExisteRegistro(nuevo);
         if (creado == null) {
-            throw new ReglaNegocioException(
+            throw new RegistroDuplicadoException(
                     "Ya existe un trabajador con el registro MSP " + numeroRegistroMSP.trim() + ".");
         }
         return creado;
@@ -84,6 +84,12 @@ public class GestorTrabajadoresBean implements GestorTrabajadoresLocal, GestorTr
     public List<TrabajadorSalud> buscarPorEspecialidad(String especialidad) {
         LOG.info("buscarPorEspecialidad() atendido por la instancia " + System.identityHashCode(this));
         return dao.buscarPorEspecialidad(especialidad);
+    }
+
+    @Override
+    public TrabajadorSalud buscarPorRegistroMSP(String numeroRegistroMSP) {
+        LOG.info("buscarPorRegistroMSP() atendido por la instancia " + System.identityHashCode(this));
+        return dao.buscarPorRegistroMSP(numeroRegistroMSP);
     }
 
     private static boolean esVacio(String valor) {
