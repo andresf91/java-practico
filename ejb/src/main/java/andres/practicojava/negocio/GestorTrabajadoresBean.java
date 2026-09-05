@@ -1,13 +1,14 @@
 package andres.practicojava.negocio;
 
-import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import andres.practicojava.datos.ConJpa;
 import andres.practicojava.datos.TrabajadorDaoLocal;
 import andres.practicojava.modelo.TrabajadorSalud;
 
@@ -19,8 +20,9 @@ public class GestorTrabajadoresBean implements GestorTrabajadoresLocal, GestorTr
 
     private static final int MAX_ANIOS_EXPERIENCIA = 60;
 
-    // interfaz local, el singleton corre en la misma jvm
-    @EJB
+    // migro capa de datos de @EnMemoria a @ConJpa
+    @Inject
+    @ConJpa
     private TrabajadorDaoLocal dao;
 
     @Override

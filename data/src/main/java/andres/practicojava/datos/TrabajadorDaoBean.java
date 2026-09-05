@@ -24,6 +24,7 @@ import andres.practicojava.modelo.TrabajadorSalud;
 
 @Singleton
 @Startup
+@EnMemoria
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 @AccessTimeout(value = 10, unit = TimeUnit.SECONDS)
 public class TrabajadorDaoBean implements TrabajadorDaoLocal, TrabajadorDaoRemote {

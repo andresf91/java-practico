@@ -10,7 +10,7 @@
 
         <jta-data-source>java:jboss/datasources/TrabajadoresDS</jta-data-source>
 
-        <class>andres.practicojava.modelo.TrabajadorSalud</class>
+        <class>andres.practicojava.datos.TrabajadorSaludEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

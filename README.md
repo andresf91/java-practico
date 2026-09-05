@@ -7,7 +7,7 @@ Gestor de **Trabajadores de la Salud** (modelo de entidades principales de Salud
 ## Módulos
 
 practicojava/
-- data/ (Session Bean singleton + entidad + intfz de datos)
+- data/ (entidad + intfz de datos + dos implementaciones, en memoria y con JPA)
 - ejb/ (Session Bean stateless + intfz de negocio + excepciones)
 - web/ (Servlet + JSP + JSF con PrimeFaces)
 - ear/ (empaqueta data+ejb+web)
@@ -25,9 +25,21 @@ practicojava/
 
 ## 1. Levantar WildFly (Docker)
 
+### Crear .env.local (SIN ESTO NO HAY CONEXIÓN A LA BD)
+
+```
+DB_URL=jdbc:postgresql://HOST:5432/postgres?sslmode=require
+DB_USER=USUARIO
+DB_PASSWORD=CLAVE
+```
+
+### Comandos Docker con .env.local
+
 ```bash
 docker build -t tse-wildfly:41 docker/wildfly
-docker run -d --name tse-wildfly --hostname localhost -p 8080:8080 -p 9990:9990 -v "$PWD/deployments":/opt/jboss/wildfly/standalone/deployments tse-wildfly:41
+docker run -d --name tse-wildfly --hostname localhost -p 8080:8080 -p 9990:9990 \
+  --env-file .env.local \
+  -v "$PWD/deployments":/opt/jboss/wildfly/standalone/deployments tse-wildfly:41
 ```
 
 Copiar el .ear en deployments/ para que Wildfly lo despliegue.
@@ -61,10 +73,14 @@ gcloud run deploy practicojava \
   --source . \
   --region southamerica-east1 \
   --port 8080 \
+  --set-env-vars "DB_URL=jdbc:postgresql://HOST:5432/postgres?sslmode=require,DB_USER=USUARIO,DB_PASSWORD=CLAVE" \
   --memory 1Gi --cpu 1 \
   --max-instances 1 \
   --allow-unauthenticated
 ```
+
+**DEFINIR LAS VARIABLES DE DB, O FALLA.**
+
 
 Agregar `--min-instances 1` para tener una instancia siempre viva y se pierda el estado de memoria en data.
 
@@ -125,3 +141,11 @@ curl -X POST http://localhost:8080/practicojava/rest/trabajadores \
   -H "Content-Type: application/json" \
   -d '{"numeroRegistroMSP":"MSP-2001","nombreCompleto":"Diego Rocha","especialidad":"Neumología","fechaAlta":"2020-05-14","aniosExperiencia":9,"prestadores":["214771230011"]}'
 ```
+
+## 7. Base de datos
+
+Los datos se guardan en PostgreSQL (datasource **TrabajadoresDS**) que la imagen de WildFly define durante el build.
+
+A efectos de este práctico, usé el servicio de Supabase, que es Postgres-as-a-Service, por lo que no es problema para desplegar Google Cloud Run.
+
+El esquema lo crea Hibernate al desplegar. Si la tabla está vacía se cargan tres trabajadores de ejemplo.
