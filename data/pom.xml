@@ -10,7 +10,7 @@
     <artifactId>practicojava-data</artifactId>
     <packaging>ejb</packaging>
     <name>practicojava - data</name>
-    <description>Capa de acceso a datos: Singleton Session Bean (en memoria)</description>
+    <description>Capa de acceso a datos, Singleton en memoria y Stateless con JPA</description>
 
     <dependencies>
         <dependency>
@@ -21,6 +21,16 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
